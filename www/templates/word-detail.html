@@ -1,0 +1,14 @@
+<ion-view view-title="Word Detail">
+    <ion-content class="padding">
+        <ion-list>
+            <ion-item ng-repeat="(key,value) in detail" class="item item-divider">
+                {{key}}
+                <ion-list>
+                    <ion-item ng-repeat="x in value" class="item item-text-wrap">
+                    {{x}}
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
