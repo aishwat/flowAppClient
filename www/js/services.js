@@ -4,9 +4,9 @@ angular.module('flowApp.services', [])
             get: function(caller, word, callback) {
                 if (word === "" && caller != "full_dict") {
                     console.log('in word null');
-                    alert("please enter a word");
+                    callback("Please enter a word");
                 } else {
-                    var url = "http://localhost:3000/" + caller + "/" + word; //later
+                    var url = "https://flow-app-server.herokuapp.com/" + caller + "/" + word; //later
                     // var config = {
                     //     headers: {
                     //         'Accept': 'application/json'
@@ -53,7 +53,7 @@ angular.module('flowApp.services', [])
         return {
             get: function(callback) {
 
-                var url = "http://localhost:3000/play";
+                var url = "https://flow-app-server.herokuapp.com/play";
                 $http.get(url).then(function(resp) {
 
                     if (resp.status == 200) {

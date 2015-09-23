@@ -1,8 +1,18 @@
 angular.module('flowApp.controllers')
-    .controller('HomeCtrl', function($q, $scope, $state, $ionicLoading, Api, Detail) {
+    .controller('HomeCtrl', function($q, $scope, $rootScope, $state, $ionicLoading, Api, Detail) {
 
-    	var apiCall=function(caller,word){
-    		console.log(caller);
+        $scope.show = function() {
+            $ionicLoading.show({
+                content: 'Loading',
+                 animation: 'fade-in'
+            });
+        };
+        $scope.hide = function() {
+            $ionicLoading.hide();
+        };
+
+        var apiCall = function(caller, word) {
+            console.log(caller);
             var callback = function(err, result) {
                 if (err)
                     alert(err);
@@ -11,30 +21,36 @@ angular.module('flowApp.controllers')
                     Detail.set(result);
                     $state.go('tab.detail');
                 }
+                 $scope.hide();
             }
-            Api.get(caller,word,callback);
-    	}
+            Api.get(caller, word, callback);
+        }
 
-        
-        $scope.definition = function(){
+
+        $scope.definition = function() {
             var word = document.getElementById("word").value;
-            apiCall('def',word);
+            $scope.show();
+            apiCall('def', word);
         }
-        $scope.synonyms = function(){
+        $scope.synonyms = function() {
             var word = document.getElementById("word").value;
-        	apiCall('syn',word);
+            $scope.show();
+            apiCall('syn', word);
         }
-        $scope.antonyms = function(){
+        $scope.antonyms = function() {
             var word = document.getElementById("word").value;
-        	apiCall('ant',word);
+            $scope.show();
+            apiCall('ant', word);
         }
-        $scope.examples = function(){
+        $scope.examples = function() {
             var word = document.getElementById("word").value;
-        	apiCall('ex',word);
+            $scope.show();
+            apiCall('ex', word);
         }
-        $scope.full_dict = function(){
+        $scope.full_dict = function() {
             var word = document.getElementById("word").value;
-        	apiCall('full_dict',word);
+            $scope.show();
+            apiCall('full_dict', word);
         }
 
     })

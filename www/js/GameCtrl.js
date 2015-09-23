@@ -10,6 +10,7 @@ angular.module('flowApp.controllers')
         });
 
         var callback = function(err, result) {
+            $scope.hide();
             if (err)
                 alert(err);
             else {
@@ -19,12 +20,23 @@ angular.module('flowApp.controllers')
             }
         }
 
+        $scope.show = function() {
+            $ionicLoading.show({
+                content: 'Loading',
+                animation: 'fade-in'
+            });
+        };
+        $scope.hide = function() {
+            $ionicLoading.hide();
+        };
+
         function initialize() {
+            $scope.show();
             Play.get(callback);
             $scope.showHint = false;
             $scope.showQuit = false;
             last_hint_def = 1;
-            last_hint_syn=1;
+            last_hint_syn = 1;
         }
 
         $scope.verify = function() {
@@ -35,6 +47,7 @@ angular.module('flowApp.controllers')
                 alert('Please enter a word');
             } else {
                 alert('Nops! Try again');
+                document.getElementById("word_game").value = "";
             }
         }
         $scope.hint = function() {
@@ -47,12 +60,11 @@ angular.module('flowApp.controllers')
             } else if ($scope.data.Definitions[last_hint_def] != null) {
                 $scope.hint_text = $scope.data.Definitions[last_hint_def]; //rndomize later
                 last_hint_def += 1;
-            }else if ($scope.data.Synonyms[last_hint_syn] != null) {
+            } else if ($scope.data.Synonyms[last_hint_syn] != null) {
                 $scope.hint_text = $scope.data.Synonyms[last_hint_syn]; //rndomize later
                 last_hint_syn += 1;
-            } 
-            else {
-                 $scope.hint_text = 'Sorry, no more hint available';
+            } else {
+                $scope.hint_text = 'Sorry, no more hint available';
             }
 
         }
