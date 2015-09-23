@@ -48,4 +48,25 @@ angular.module('flowApp.services', [])
             }
         };
 
+    })
+    .factory('Play', function($http) {
+        return {
+            get: function(callback) {
+
+                var url = "http://localhost:3000/play";
+                $http.get(url).then(function(resp) {
+
+                    if (resp.status == 200) {
+                        callback(null, resp.data);
+                        console.log('callback executed');
+                    } else
+                        callback('Response not 200 ' + resp.status);
+                }, function(err) {
+                    console.log(err);
+                    callback('Something Went Wrong ' + err);
+
+                });
+
+            }
+        };
     });
